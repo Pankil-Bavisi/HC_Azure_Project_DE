@@ -1,0 +1,6 @@
+baseurl,relativeurl,filename
+https://pbhealthcare25blob.blob.core.windows.net,landing-hospital-a/departments.csv,departments.csv
+https://pbhealthcare25blob.blob.core.windows.net,landing-hospital-a/encounters.csv,encounters.csv
+https://pbhealthcare25blob.blob.core.windows.net,landing-hospital-a/patients.csv,patients.csv
+https://pbhealthcare25blob.blob.core.windows.net,landing-hospital-a/providers.csv,providers.csv
+https://pbhealthcare25blob.blob.core.windows.net,landing-hospital-a/transactions.csv,transactions.csv
