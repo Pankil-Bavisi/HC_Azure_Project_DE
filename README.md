@@ -18,7 +18,7 @@
     </a>
   </p>
   
-  <h2>Technnology Used</h2>
+  <h2>Technology Used</h2>
     <ul>
       <li>Programming Language - Python</li>
       <li>SQL</li>
