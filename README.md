@@ -21,8 +21,11 @@
   <h2>Technnology Used</h2>
     <ul>
       <li>Programming Language - Python</li>
+      <li>SQL</li>
+      <li>Spark</li>
+      <li>PySpark</li>
     </ul>
-    <u><p>==) Azure Cloud Services:</p></u>
+    <p>==) Azure Cloud Services:</p>
       <ol>
         <li>Azure DataLake Gen2</li>
         <li>Azure Databricks</li>
@@ -32,7 +35,7 @@
         <li>Azure SQL Database</li>
         <li>Linked Service</li>
       </ol>
-    <p>==) <u>Other Functionalities:</u></p>
+    <p>==) Other Functionalities:</p>
       <ol>
         <li>Implemented Medallion Architecture</li>
         <li>Implemented Common Data Model(CDM)</li>
