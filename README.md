@@ -13,8 +13,8 @@
   
   <h2>Architecture:</h2>
   <p dir="auto">
-    <a href="https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/master/images/Architecture.png">
-      <img id="architecture" src="https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/master/images/Architecture.png" style="margin-top: 0px; text-size: 50px;"> </img>
+    <a href="https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/main/images/Architecture.png">
+      <img id="architecture" src="https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/main/images/Architecture.png" style="margin-top: 0px; text-size: 50px;"> </img>
     </a>
   </p>
   
@@ -22,34 +22,55 @@
     <ul>
       <li>Programming Language - Python</li>
     </ul>
-    <p>Google Cloud Platform Tools</p>
+    <p>Azure Cloud Services</p>
       <ol>
-        <li>Google Storage</li>
-        <li>Compute Instance</li>
-        <li>BigQuery</li>
-        <li>Looker Studio</li>
+        <li>Azure DataLake Gen2</li>
+        <li>Azure Databricks</li>
+        <li>Azure Data Factory</li>
+        <li>Azure Blob Storage</li>
+        <li>Azure Key Vault</li>
+        <li>Azure SQL Database</li>
+        <li>Linked Service</li>
       </ol>
-    <p>Modern Data Pipeline Tool - <a href="https://www.mage.ai/"> https://www.mage.ai/ </a></p>
-    <p>Contribute to this open source project - <a href="https://github.com/mage-ai/mage-ai">https://github.com/mage-ai/mage-ai</a></p>
-  
+    <p>Other Functionalities</p>
+      <ol>
+        <li>Implemented Medallion Architecture</li>
+        <li>Implemented Common Data Model(CDM)</li>
+        <li>Implemented SCD-2</li>
+        <li>Implemented Surrogate Key</li>
+        <li>Implemented naming conventions & folder structure</li>
+        <li>Made the Pipeline from 'Sequential --> Parallel'</li>
+        <li>Implemented 'is_active / is_inactive' (0/1) Flag.</li>
+        <li>Added 'is_quarantined' feature to quarantine the bad records. (True: Bad records/False: Good records)</li>
+      </ol>
+      
   <h2>Dataset Used</h2>
-    <p dir="auto">TLC Trip Record Data Yellow and green taxi trip records include fields capturing pick-up and drop-off dates/times, pick-up and drop-off locations, trip distances, itemized fares, rate types, payment types, and driver-reported passenger counts.</p>
-    <p>Here is the dataset used in the video - <a href="https://github.com/Pankil-Bavisi/Uber_ETL_Pipeline_Data_Engineering_Project/blob/master/data/uber_data.csv">https://github.com/Pankil-Bavisi/Uber_ETL_Pipeline_Data_Engineering_Project/blob/master/data/uber_data.csv</a></p>
-    <p>More info about the dataset can be found here: </p>
+    <p dir="auto">Healthcare Data includes various fields of records such as EMR Data(Patients Data, Providers Data(Doctors), Departments Data, Encounters Data, Transactions Data), Claims Data, CPT Codes Data, NPI & ICD Codes Data.</p>
+    <p>Here is the dataset used in the video - <a href="https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/main/datasets">https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/main/datasets</a></p>
+    <p>Links to understand the KPI's & understand more on Accounts Receivable (AR)</p>
     <ol>
-      <li>Website : <a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page">https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page</a></li>
-      <li>Data Dictionary : <a href="https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf">https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf</a></li>
+      <li>Website : <a href="https://mdmanagementgroup.com/healthcare-accounts-receivable-management/">https://mdmanagementgroup.com/healthcare-accounts-receivable-management/</a></li>
+      <li>Difference between ICD codes CPT codes : <a href="https://www.simplepractice.com/blog/icd-codes-and-cpt-codes/
+">https://www.simplepractice.com/blog/icd-codes-and-cpt-codes/
+</a></li>
     </ol>
-    
+    <p>More info about Healthcare Dataset can be found here: </p>
+    <ul>
+      <li>1) EMR Data (from 'Azure SQL DB' --> 'Bronze layer' --> 'Silver layer' --> 'Gold layer')</li>
+      <li>2) NPI & ICD Data (from 'APIs' --> 'Bronze layer' --> 'Silver layer' --> 'Gold layer')</li>
+      <li>3) Claims & CPT Data ('landing' --> 'Bronze layer' --> 'Silver layer' --> 'Gold layer')</li>
+      <li><b>*Notes: </b>The transformation of 'Silver layer' --> 'Gold layer' of 'Encounters Data (part of EMR Data) & Claims Data' work in progress.</li>
+    </ul> 
+
   <h2>Data Model</h2>
   <p>
-    <a href="https://github.com/Pankil-Bavisi/Uber_ETL_Pipeline_Data_Engineering_Project/blob/master/architecture.jpg">
-      <img id="architecture" src="https://github.com/Pankil-Bavisi/Uber_ETL_Pipeline_Data_Engineering_Project/blob/master/Uber%20Data%20Model.jpeg"></img>
+    <a href="https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/main/images/DataModel.png">
+      <img id="architecture" src="https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/main/images/DataModel.png"></img>
     </a>
   </p>
   
   <h2 tabindex="-1" dir="auto">End of Project</h2>
-  <p dir="auto">Never lose faith | Never Give Up | Happy Learning</p>
+  <p dir="auto">Keep Learning, Keep Going | Be Strong | Never Give Up</p>
   
 </html>
 
