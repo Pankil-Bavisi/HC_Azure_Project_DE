@@ -6,7 +6,7 @@
   </h2>
   <p dir="auto">
     <br style="display: block; margin:10px 0; content=''; ">
-    <p style="margin-top: 0px; text-size: 50px;" dir="auto">The goal of this Healthcare Data Engineering project is to perform advanced data analytics on large-scale Healthcare Data using a wide range of Big Data tools and Azure cloud technologies. </p>
+    <p style="margin-top: 0px; text-size: 50px;" dir="auto">The goal of this Healthcare Data Engineering project is to serve a 'Fact & Dimension' Tables to the Reporting Team to run BI workloads and reports and perform advanced data analytics to gether insights on large-scale Healthcare Data using a wide range of Big Data tools, technologies and Azure cloud services. </p>
     <p>This repository provides a complete end-to-end workflow of the project, offering a clear understanding of the overall architecture, implementation steps, and all the required Azure services and resources.</p>
   <p>By following this project, you will gain hands-on experience with real-world Data Engineering practices and strengthen your journey toward becoming a proficient Big Data Engineer.</p>
   </p>
