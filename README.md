@@ -22,7 +22,7 @@
     <ul>
       <li>Programming Language - Python</li>
     </ul>
-    <p>Azure Cloud Services</p>
+    <u><p>==) Azure Cloud Services:</p></u>
       <ol>
         <li>Azure DataLake Gen2</li>
         <li>Azure Databricks</li>
@@ -32,7 +32,7 @@
         <li>Azure SQL Database</li>
         <li>Linked Service</li>
       </ol>
-    <p>Other Functionalities</p>
+    <p>==) <u>Other Functionalities:</u></p>
       <ol>
         <li>Implemented Medallion Architecture</li>
         <li>Implemented Common Data Model(CDM)</li>
@@ -59,9 +59,10 @@
       <li>1) EMR Data (from 'Azure SQL DB' --> 'Bronze layer' --> 'Silver layer' --> 'Gold layer')</li>
       <li>2) NPI & ICD Data (from 'APIs' --> 'Bronze layer' --> 'Silver layer' --> 'Gold layer')</li>
       <li>3) Claims & CPT Data ('landing' --> 'Bronze layer' --> 'Silver layer' --> 'Gold layer')</li>
-      <li><b>*Notes: </b>The transformation of 'Silver layer' --> 'Gold layer' of 'Encounters Data (part of EMR Data) & Claims Data' work in progress.</li>
+      <!-- <li><b>*Notes: </b>The transformation of 'Silver layer' --> 'Gold layer' of 'Encounters Data (part of EMR Data) & Claims Data' work in progress.</li> -->
+      <li><b>Work in Progress: </b>The transformation of 'Silver layer' --> 'Gold layer' of 'Encounters Data (part of EMR Data) & Claims Data' is under development and will be updated in upcoming commits.</li>
     </ul> 
-
+    
   <h2>Data Model</h2>
   <p>
     <a href="https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/main/images/DataModel.png">
