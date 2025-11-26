@@ -1,0 +1,2091 @@
+DE Project - Sumit Mittal (YT):
+-------------------------------
+== Technology: Azure Data Engineering Stack
+
+== Domain: There are multiple domains, like, Healthcare - Retail - Finance - Banking - Insurance, etc. 
+	--> This will be around 'Healthcare' domain.
+// Healthcare Revenue Cycle Management (RCM) //
+-----------------------------------------------
+--> RCM is the process that 'hospitals' use to manage the financial aspects, from the time the patient schedules an appointment till the time the provider(Doctor/Hospital) gets paid.
+	- e.g. If you have viral fever, the moment you schedule an appointment from that time onwards till the doctors get paid.
+	- The complete end-to-end process, that means, first 'patient' pays to the 'hospital' and the 'hospital' internally pays the salary and all of that stuff in-between.
+	- But, this mainly to deal with these financial aspects about patient paying to the hospital and hospital has enough of revenue supply so that they can manage their things.
+
+==) Here is a simplified breakdown:
+-----------------------------------
+1) It starts with a patient visit.
+  - patient details are collected by the hospital, such as 'insurance details' (very important).
+  - This ensures provider knows who will pay for the services.
+	- either patient will pay / insurance company will pay / both will pay(some part)
+	- Example:
+	- In USA, one patient goes to the hospital for doing a surgery charge and the charges are 20000 USD
+		- 15000 USD - Insurance company will pay
+		- 5000 USD - Patient will pay
+		or
+		- 20000 USD - Insurance company will pay the entire amount
+		or
+		- 20000 USD - Patient will pay the entire amount
+	- It can be various scenario based on the 'insurance policy' and all.
+	- That's why it's important to know the details of patient like, what insurance that patient hold and all of that.
+
+
+2) Services are provided by the hospitals/doctors:
+	- Doctor provides the treatment
+	- Hospital keeps the track of everything done: test, procedure, medication
+
+3) Billing happens:
+   - The hospital will create a bill and sent it to the patient/insurance company to request for the payment.
+
+4) If it goes to the Insurance company --> Then claims are reviewed :
+	- Means, Insurance company review the bill and make sure it follows their rules.
+	- because, Insurance company also has certain norms that:
+		- How much they can pay?
+		- What surgery it was?
+		- so, they have lot of rules and regulations.
+	- so, it will see whether it's following their rules or not and based on that,
+		- they will approve / reject the payment. (due to some errors or uncovered services)
+		- Either pay in full / partial / decline the payment based on whatever the Insurance policy person hold.
+
+5) Payments and follow-ups:
+- That means, once the Insurance company pays its share the hospital may bill patient for the remaining amount
+	- It might happen that,
+	 Insurance company pays certain amount + Patient pays certain amount
+	- It will happen, once the Insurance company pays it's share and the remaining one will be asked from the patient.
+	- And, if payments are delayed/denied, the hospital will follow up for the issues or to the patient for the payment.
+
+	- If "partial-full-no payment" is done by Insurance company
+	then, "some portion-no payment-full payment" is given by the Patient.
+	- and the providers will follow up for the payment.
+	
+6) Tracking and improvement: (what does it mean?)
+- So, hospital constantly monitor the process to ensure we're collecting the payments efficiently and reducing mistakes like declined claim and all.
+	- // They do not want to loose the business, so they want to make sure they collect all the amount, it's not that some patient becomes defaulters and they are not paying and so on.
+- So, they want to track it - follow up - and improve it properly, in case if they feel they are loosing money and all.
+
+==) In a nutshell, ECM ensures the hospital can provide quality care while also staying financially healthy.
+  - it means, it should not happen that they miss-manage things and patient has to pay but that patient is not paying, they are not following up, like that.
+  - RCM ensure that hospital stay financially healthy so that,
+	- they pay to their doctor and instruments, and all of it.
+  So, it's about making sure everyone, patients, insurers, providers(doctors) get paid on time or whatever payment they have to do that's collected on time.
+
+==) // As part of RCM we have 2 main aspects: //
+------------------------------------------------
+1) Account Receivable (AR) --> 'Most Important component & key focus area'
+	- The payment they have to collect from Patients, Insurance company, or whatever.
+	- Whatever money they are getting they are getting as 'Account Receivable'
+	- Notes: whatever we'll be doing in this project will be inclined more towards "AR", so hospitals remain financially healthy.
+
+2) Account Payable (AP)
+	- Whatever they have to pay, to their Doctors, Staffs, Instruments, whatever.
+ 	- Whatever the money they are paying is 'Account Payable'.
+
+--> So, there are always 2 parts: 1) Getting money & 2) Paying money
+
+
+== // What will be the Risk Factor? //
+--> Is insurance company paying a risk factor? --> No
+  - Those company that's dealing a kind of Business-to-Business that will happen properly?
+--> But, the Risk Factor comes when patient has to pay from their savings(pockets)
+  - Patient paying is often a risk. (to pay partial/complete amount)
+  - And, if the money does not get collected/received from the patients --> then it's kind of a lost business.
+
+** Scenarios when Patient has to pay: **
+----------------------------------------
+--> A case, when the Insurance company pays the entire amount (that's the best for the hospital)
+	- Hospitals can even make more money
+	- make higher bills 
+	- and the money will get paid on time by the Insurance company.
+- (main issue lies when a patients has to make either partial/full payment)
+
+1) Low Insurance Plans: these insurance providers put most of the burden on patients itself.
+  - These 'Low Insurance Plans' are attractive at first, but many consumers don't fully grasp the implications of their deductible until they get the paid.
+
+- Private Clinics  -- (where insurance claim does not accept)
+- Dental Treatment  -- (costly, but where insurance claim can not happen)
+- Deductibles (like, gloves, bandages, surgery materials)
+
+--> Such things are the times, when patient has to pay from their pocket.
+
+
+==) So, always Hospital wants to have a healthy "Account Receivable (AR)"
+-------------------------------------------------------------------------
+// 2 objectives for AR: //
+
+1) Bring the cash (the patient should not default the money - that means they should pay)
+ - Moreover, it's not just about paying --> but they should pay on time.
+
+2)  also minimize the collection period -- (it should not happen that patient will pay after 5 months)
+
+	- Let's say, money which we were supposed to receive from the patient was 10,000 USD
+	// after 5 months - as per the inflation //
+	- this 10,000 USD will be seen as less.
+	- So, that's a loss which you can not directly see, but that's a loss.
+
+
+==) As per the analysis that has been done by some Organizations: (what they feel is)
+- The probability of collecting your full amount decreases with time.
+	- That means, if you're able to collect early - that's better
+	- If you're not able to collect it in 12 months, then there is no guarantee that whether the patient will pay or not
+
+==) as per the states:
+--> 93% of money due 30 days old.
+	- that means, whatever is under 30 days old you will be able to collect 93% of that
+
+--> 85% of money due 60 days old.
+	- that means, a hospital is able to recover approximately 85% of money which is 60 days old.
+
+--> 73% of money due 90 days old.
+	- that means, whatever is under 90 days old you will be able to collect 73% of that
+
+==> so, this clearly shows, as in when the patient kind of delays the process, the chances of them paying become less.
+	- It means we can always calculate the certain metrics in order to see.
+-------------------------------------------------------------------------------
+
+**// KPI to measure AR and set benchmark //**
+
+-> There are certain KPI that you can calculate to understand - are you having a healthy "Account Receivable (AR)" or not? (there are man such KPIs)
+
+1) AR > 90 days
+ -> Account that have aged over 90 days are at higher risk for going uncollected. Therefore, it's very important to 'keep track of how much money is moving into this aged category from month to month'.
+ -> That means, someone who has not paid in 90 days, there are a chances that they will default.
+ -> Formula: % >90 days = AR > 90 days / Total AR
+
+== E.g: If your total AR is '1 Million USD' and
+        100K USD is older than 90 days
+ - that means, 100K / 1 Million * 100
+ = So, your AR > 90 days become 10%
+
+2) Days in AR:
+-> Let's say your Hospital has collected/raised a bill around,
+   1 Million USD in 100 days.
+Then, if we divide '1 Million USD' / 100 days
+so, per days collection = 10,000 USD (average)
+
+-> Let's say your total AR/money you have to get is 400K USD (which you are above to get)
+   So, it's a money which you can be generated in (400K USD / 10,000 USD per day)
+ -> So, days in AR = 40 days, (because, your per day collection is 10,000 USD)
+ -> It's something which your Hospital would earn in '40 days'.
+    (40 days worth of money is pending)
+
+ -> We can set a benchmark like,
+    Let's say, if AR is < 45 days --> it's fine
+    but, if it goes above > 45 days --> then, we will have to check process., are they fine or not? 
+
+3) Net Collection Rate:
+
+- Let's say, you have to collect '1 Million USD' and
+  you are able to collect only '0.99 Million USD'
+  -> That means, around 1% went in a way that patient are not paying. (it's gone as a bad)
+  -> That means, your NCR = 99% (which is good)
+  -> So, we can set benchmark like this
+
+
+4) Other AR Metrics: (which we can explore)
+- Percentage of bad debt to charges
+- Gross collection ratio
+- Average time span from charge to billing
+- Total outstanding dollars
+- Number of billings per week
+- Dollars outstanding as a percentage or AR
+- Collection ratio by financial class
+
+----------------------------------------------------
+==) // What do we have to do as a Data Engineer? //
+----------------------------------------------------
+1) We will have data in 'various Sources'
+- we need to create a Pipeline, the end-result of this Pipeline will be "Fact tables & Dimension tables" --> and, this will help the 'Reporting team' to generate KPIs ay the end.
+	** KIPs like:
+	-------------
+	==> AR > 90 days:  20% of money which is pending for the Hospital is more than 90 days old.
+	(so, we would have set up certain benchmarks)
+	// How do you calculate that 20% ? //
+	- Using whatever tables we generate in the end as part of this entire Pipeline.
+	--> So, all KPIs can be calculated from the final tables we will have.
+
+--> so, as a Data Engineer team, we need to enable the 'Reporting Team' -- so they can take these final tables and do whatever they wanted to do in order to get the KPIs.
+
+------------------------------------------
+==) // Session 3: Overview of Datasets: //
+------------------------------------------
+1) EMR Data: (Electronic Medical Records - very important) --> (Azure SQL Database)
+
+
+--> we have various 5 Tables:
+	- Patients 
+	- Provides (Doctors)
+	- Departments: Orthopedics, Oncology, Dermatology, Neurology, Gastroenterology, Cardiology, Radiology, ICU, Birth centers, Gynecology, Urology, Pediatrics, Psychiatry, etc.
+	- Transactions: 
+		- For that particular encounter, there can be multiple transactions like,
+		-> you pay the doctor's fee
+		-> pay for the medicine bill
+		-> pay for the Physiotherapy
+		-> pay for the Consultation
+		-> so, transactions can be many.
+
+		+ 'ICD code' cab be mapped to description of it. So later this 'ICD code' we pull from the API and this cab be mapped to a particular description of the disease (what exactly a disease / type of disease)
+		(so, 'ICD code' is a standardize system used by healthcare providers to classify the all of these. --> so, based on this code, we will understand what disease it is? --> so we will see how we will map to the actual disease?)
+
+
+	- Encounter: 		- E.g. You have a viral fever and go to the Hospital, so first time they encounter the problem and they associate you with a respective doctors.
+		- Encounter is one for that particular case.
+	-------
+	* Notes: 
+	- Bigger Tables: Transaction - Encounter - Patient
+	- Smaller Tables: Providers - Departments
+	-------
+
+	**// Different Scenario //**
+	- In Bangalore,
+	let's say, there are 2 Hospital (2 different branch)
+	1) Manipal Hospital:
+		- Let's say, they have slightly different 'table structure, column name'
+		- Now, when they acquired a 'Columbia Asia Hospital', the 'patient details' of 'Columbia Asia Hospital' will also be associated with the 'Manipal Hospital'
+			-> There can be chance that 'number of columns / column names' are different.
+			// More interestingly, what can even happen? //
+			-> Now consider, somehow the 'patient_id' for "Columbia Asia & Manipal Hospital" were same, like it was 'HOSP1-000101' --> then, how will you identify that?
+			++ So, how you will try to build a common 'Data Model' later?
+			(so, that you should not face these difficulties that how do you merge these 2 Schemas together?)
+			-> They might use a different 'column names' or 
+			-> if they are using the same column names, might be they are using the same 'patient_id' (then, how will you know, which patient is coming from Hospital-A and which coming from Hospital-B if the 'patient_id' is the same?)
+ 
+			++  That's where, we're taking 2 Hospitals to showcase a common 'Data Model' later.
+			->e.g. 'Hospital-A & Hospital-B'
+			(Think that there are 2 different branches of a Hospital in Bangalore)
+			--> but, they slightly different 'schemas' for some of the Tables and some of them have like same 'patient_id', then --> we would implement the 'Surrogate Key' later so that we're not dependent on that. (so, we would implement a common 'Data Model' later -- that's important thing)
+
+	2) Columbia Asia Hospital (acquired by 'Manipal Hospital')
+		- Now, when they
+
+	== So we will have 2 different instance of 'Azure SQL DB':
+	i) Hospital-A: 
+	- Database name: 'healthcare-hospital-a'
+	- Server: 'pb-healthcare-emr-data;	-- (first time created)
+	- Server admin login: 'healthcare-sql-admin'
+	- Password: 25@projecthc
+
+	ii) Hospital-B:
+	- Database name: 'healthcare-hospital-b'
+	- Server: 'pb-healthcare-emr-data;	-- (already existed)
+	- Server admin login: 'healthcare-sql-admin'
+	- Password: 25@projecthc
+
+
+2) Claims Data:
+
+--> Insurance company (payers) will be sending us this data and they will upload in the form of ('Flat Files') and they will put it in a specified Container in 'ADLS Gen2'
+	- Storage Account(ADLS) - 'ttadlsdev'
+
+	- containers: 'landing' Folder (Files will be uploaded by Insurance company)
+			(Flat(csv) files - they will send it monthly once)
+			- 'hospital1_claim_data.csv' 
+			- 'hospital2_claim_data.csv' 
+
+3) NPI Data: (National Provider Identifier) -- (API)
+
+--> Each doctor is given a unique 10-digit NPI number. (a unique number which identifies each doctor)
+	- There is a Public API available, we can call that get all the list of doctors.
+
+4) ICD Data (ICD codes) -- (Public API)
+
+--> ICD codes are a standardize system used by 'Health care' providers to map/classify diagnosis code and description.
+	- we will have an API, which gives us this kind of mapping, like 'ICD_code & description'
+	e.g. A01.0 {'@language': 'en', 'value': 'Typhoid fever'}
+
+--> so, we will run this 2 APIs also (NPI data API & ICD code API)
+--------------------
+** So, we will have,
+1) EMR Data --> (Azure SQL DB)
+2) Claims Data --> (Flat files(csv) in 'landing' Folder uploaded by 'Insurance Providers')
+3) NPI data & ICD code Data --> (let's assume, 'parquet files' we get it from the API)
+
+-----------------------------------------------------
+==) // Session 4: Solution Architecture Breakdown: //
+-----------------------------------------------------
+--> We will use a 'Medallion Architecture' here.
+
+    --------------------------------------
+==) Landing --> Bronze --> Silver --> Gold
+    --------------------------------------
+What happens,
+
+Landing: all of your data in 'Landing' Folder, so try to move it to the right side, like
+	Landing --> Bronze
+	Bronze --> Silver
+	Silver --> Gold
+--> and, we keep improving the data in terms of cleaning, processing, better data and all. 
+
+*Bronze:
+--------
+	--> All raw data (Source of Truth - unstructured data with redundancy, missing values, null values, different schemas, etc)
+
+*Silver:
+--------
+	--> cleaned, processed, filtered, refined data, quality checked data, enriched,
+        --> we will also implement CDM (Common Data Model) - because we have data from 2 different Hospitals (Patients tables have different column names + 'patient_id' might be same) - so, we'll implement a 'Surrogate Key' to properly merge these 2 databases without any problem.
+        --> As we know, 'patient detail can change' / 'doctor detail can change' -- so, we'll implement a "SCD-2", so that we maintain the history also.
+        --> As we know, we have different kind of slowly changing dimension,
+	E.g. 'Patient table, Provider table' -- all these are 'Dimension tables'
+	(things can change and we can end it the previous record and the new record will come, so we maintain the previous history)
+ 
+*Gold:
+------   
+	--> Highly aggregated, curated, business-specific data
+	==> In our project, what we'll do:
+	----------------------------------
+	--> Finally, we want the answer in the form of "Fact & Dimension" tables.
+		--> so, that 'Reporting Team' can build their KPIs, can understand all of that metrics.
+		--> so, we need to build the right 'Data Model' for "Fact & Dimension".
+		--> so, 'Reporting Team' will take this and build a report on top of it.
+
+**// Who will be end-users for: //** 
+(each Layer serves different personas/different kind of person)
+
+= Gold Layer: Business users (who have to take business related decisions)
+
+= Silver Layer: Data Scientist Team, Machine Learning Team, Data Analyst Team
+	(because, they would need granular-level data, but cleaned data)
+
+= Bronze Layer: Data Engineer (who can implement whatever they want)
+
+
+**Notes: Sometimes we can even have 4/5 Layers based on the requirements, but each layer would serve different use case.
+	- So, there is no hard and fast rule that there can be only 3 Layers in this.
+
+--------------------------------------------------------------------
+
+1) EMR Data --> (Azure SQL DB)
+	- We directly bring it from 'Azure SQL DB' --> 'Bronze' layer (in Parquet files)
+	(no need of 'Landing' layer)
+
+2) Claims Data --> (Flat files(csv) in 'landing' Folder every month)
+	- Put it from 'Landing' zone --> 'Bronze' layer (in Parquet files by 'Databricks')
+
+3) NPI data & ICD code Data --> (let's assume, 'parquet files' we get it from the API)
+	- We directly bring it from 'API' --> 'Bronze' layer (in Parquet files by 'Databricks')
+
+
+==>Notes: So, here 'Landing' zone will only be for 'Insurance Company's data'
+
+
+    ---------------------------------------------------------------
+==) Landing     --> Bronze        --> Silver       --> Gold
+    ---------------------------------------------------------------
+==) Flat files  --> Parquet files --> Delta tables --> Delta tables
+
+
+**Notes: From 'Silver' Layers onwards we will have 'Databricks Delta Tables', where we can even write, perform ACID transactions and so on.
+
+--> so, there will be heavy role to move from Bronze --> Silver --> Gold, using 'Databricks', so most of the logic will be in 'Databricks' then
+
+==> And, towards the end what's our end goal as a Data Engineer?
+	- Do we have to do visualization or reposting? --> 'No'
+	- Our end goal is creates "Facts & Dimensions table" --> so the 'Reporting Team' can take care and perform the reporting work and all.
+=================================================
+
+--------------------------------
+**// Fact & Dimension Table //**
+--------------------------------
+==) Fact:
+---------
+  - a numeric value (integer/decimal point) on which we can perform aggregations/calculations like count, min, max, sum, avg, etc. --> which is a good candidate to be a Fact.
+  - Example: Total quantity - sales - amount - purchase
+  - Fact never change.
+
+  - Notes: 'product_id' is also numeric, but it can not be fact --> WHY?
+  because, we can not perform calculation on 'product_id' such as, "sum of product_id"
+
+
+==) Dimension:
+--------------
+  - all the supporting thing which enhances the fact, like an additional information or description which describes more about the Fact.
+  - Dimensions can change slowly. (e.g. Customer's address, product name/description, etc.)
+  	// That's where we have to implement "SCD-2" to maintain the history. //
+  *Notes: we have different types to implement "SCD".
+	= SCD-1: where we do not maintain the history, we override it
+	= SCD-2: where we maintain the history. (Industry practice)
+
+  - Example: Sam purchased the $1000 iPhone on Friday 7 PM from the sales person Mr. John in iVenus store Bangalore.
+	+ Fact: $1000
+	+ Dimensions: Who bought it? --> Sam
+                    - What bought it? --> iPhone
+                    - When they bought it? --> Friday
+                    - Which time they bought it? --> 7 PM
+		    - Where they bought it? --> from iVenus store, Bangalore
+		    - Who were the sales person? --> Mr. John
+		
+			
+
+==) *Notes:
+  - If we see in the "Fact & Dimension" diagram, we can see there even some dimensions have link.
+  - Example: 'Dim_Department' has a link to the 'Dim_Provider'
+	     - Dept_ID (PK)			- Provider_ID (PK)
+	     - Name				- Provider_Name
+	     - Data_Source			- NPI
+						- Dept_ID (FK)
+  - A doctor can be in a certain department.
+  (we could have clubbed this 2, but if we separate, it's more like a "Snowflake" kind of style, where we would have to JOIN these 2 also, because these Dimensions can relate to each other.)
+	- otherwise, if you go with a "normal Fact & Dimension" --> then a Fact can be connected to a Dimension, a Dimension can not be related to another Dimension.
+	- but, if a Dimension relates to another Dimension, that's more like a "Snowflake" style.
+--------------------------------------------------------------
+
+==) // In this part, we mainly talk about, (we'll solve it using Industry fashion)
+how to bring "EMR Data (Azure SQL DB)" --> "Bronze Layer"
+
+
+------------------------------------------------------
+==) // Session 5: Technologies used in the Project: //
+------------------------------------------------------
+
+--> Azure Data Factory -- (for Ingestion)
+
+--> Azure Databricks -- (for Data Processing)
+
+--> Azure SQL DB -  (holds EMR Data)
+
+--> Key Vault -- (for storing credentials)
+
+--> Azure Storage Account -- (for Raw/Parquet files)
+
+--------------------------------------------------
+==) // Session 6: Step-1 Azure Storage Account: //
+--------------------------------------------------
+--> Azure Storage Account -- (for Raw/Parquet files)
+	- 'pbhealthcare25adls' (ADLS Gen2 -> optimized for Big data analytics workloads)
+	=> create various Containers: 
+		* "landing - bronze - silver - gold" (to implement Medallion Architecture)
+		* and "configs" (to keep the configuration files)
+			--> so that we implement a 'Generic Pipeline'
+			- (Metadata driven Architecture/Pipeline)
+			
+			--> Inside 'configs' Folder, we'll create a 'EMR' Folder
+			(because, we want to create a generic Pipeline for EMR data)
+				- inside this we have 'load_config.csv' file
+
+	// 'load_config.csv' file has different columns: //
+	---------------------------------------------------
+
+- database: trendytech-hospital-a | trendytech-hospital-a
+
+- datasource: hos-a | hos-b
+
+- tablename: we have 5 tables for both database
+	- dbo.encounters 	(Incremental, because it keeps increasing)
+	- dbo.patients		(Incremental, because it keeps increasing)
+	- dbo.transactions	(Incremental, because it keeps increasing)
+	- dbo.providers		(Full, limited data)
+	- dbo.departments	(Full, limited data)
+
+- loadtype: Incremental / Full
+
+- watermark:
+	*Notes: 'watermark' is only applicable for 'Incremental load'.
+	- 'watermark' is not used for 'Full load'.
+
+	--> Here, we'll use the 'ModifiedDate' column for 'Incremental'
+	That means, any new records after this particular 'ModifiedDate' --> we consider it as a new data. (so, we store the last 'ModifiedDate' here and new records we'll pick after that)
+
+- is_active: (flag)
+	- 0: Inactive | 1: Active
+	- Only the records with '1' should be taken care.
+	That means, when we invoke this, then 
+	--> Table with flag '0' should not be ingested (means, Inactive Pipeline)
+	--> Table with flag '1' should be ingested (means, Active Pipeline)
+
+- targetpath: hosa | hosb
+	- We'll put it to either 'hosa/hosb' Folder
+----------
+==) Notes: these configurations we've put, so after reading this, the system knows what to do and how to do?
+
+
+-----------------------------------------------------
+==) // Session 7: Pipeline Implementation Details: //
+-----------------------------------------------------
+
+--> We take the 'EMR Data (Azure SQL DB)' --> ADLS Gen2(Bronze Layer - in Parquet format)
+ (As part of this Pipeline, Metadata Driven Architecture)
+- We'll create a "Audit Table" -- (in Databricks Delta Table)
+	- Whenever Pipeline has run/finished -> we'll put an entry such as,
+				     (Pipeline finished at this time,
+				      Pipeline is successful or not?,
+				      What time it has last run?, etc.)
+	- so, that next time when we run, we try to pull all data after that time.
+	- so, for our 'Incremental Load', the last 'ModifiedDate' will help us there.
+
+
+
+--> so, we have to create 'ADF Pipeline' for this task.
+--> Required components of ADF:
+1) Linked Service: 
+	- If we have to get data from 'Azure SQL DB', we need some connection, no one can randomly connect to our Database.
+	- It says, how do you connect to your "Source & Target(Sink)"
+	== So, we would need,
+	Linked service --> "Source" ('Azure SQL DB')
+	Linked service --> "Target(Sink)" ('ADLS Gen2') - (Bronze layer)
+	Linked service --> "Delta Lake" (in order to put an entry in Audit Table(Delta Tbl))
+	Linked service --> "Key Vault"
+
+2) Datasets:
+--> Now we have to specify, to which file we have to connect or where we will be storing it.
+such as, when we connect to,
+-- Azure SQL DB: "Database name / Table name / Schema name"
+-- Data Lake: "Container name / Directory name / File name / File Format" (to Source/Target)
+-- Delta Lake: Databricks Delta Lake
+
+-->** Basically, you should associate a link service to a Dataset
+
+3) Activities
+4) Pipeline
+-----------------------------------------------------------------------
+1) Linked Service:
+-------------------
+
+1) --> Linked service --> "Source" ('Azure SQL DB'):
+
+	- create 1 Linked Service --> and points to 2 different Database
+	- set database name / server name / 
+	- using dynamic approach: Parameter: 'db_name'
+		--> Workflow is:  "Pipeline --> Datasets --> Linked Service"
+
+2) --> Linked service --> "Target(Sink)" ('ADLS Gen2') - (Bronze layer):
+
+3) --> Linked service --> "Delta Lake" (in order to put an entry in Audit Table(Delta Tbl))
+- Steps:
+	Go to ADF -> Manage -> Linked service -> '+ New' -> search, 'Azure Databricks Delta Lake'
+	- Domain: 'https://adb-2069552357219267.7.azuredatabricks.net'
+	- Existing Cluster ID: '1121-200826-ynkqjvlr'
+	- Access Token: go to Databricks -> Settings -> Developer -> Access tokens(click on Manage) -> 'Generate new Token' -> Copy the token(because, you won't be able to see it again)
+		- databricks-access-token: 'dapid55d4f2620ad10473861e492932187b8'
+
+
+
+
+
+// Audit Table Creation // (Databricks Delta Table)
+---------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS audit;
+
+CREATE TABLE IF NOT EXISTS audit.load_logs(
+	id BIGINT GENERATED ALWAYS AS IDENTITY,
+	data_source STRING,
+	tablename STRING,
+	numberofrowscopied INT,
+	watermarkcolumnname STRING,
+	loaddate TIMESTAMP
+);
+
+
+==>* Notes: In Databricks, 'schema' is nothing but 'Database'.
+
+
+
+
+
+
+hospitallist_a_lookup.csv
+https://pbhealthcare25blob.blob.core.windows.net/landing-hospital-a/departments.csv
+https://pbhealthcare25blob.blob.core.windows.net/landing-hospital-a/encounters.csv
+https://pbhealthcare25blob.blob.core.windows.net/landing-hospital-a/patients.csv
+https://pbhealthcare25blob.blob.core.windows.net/landing-hospital-a/providers.csv
+https://pbhealthcare25blob.blob.core.windows.net/landing-hospital-a/transactions.csv
+
+
+
+hospitallist_b_lookup.v
+https://pbhealthcare25blob.blob.core.windows.net/landing-hospital-b/departments.csv
+https://pbhealthcare25blob.blob.core.windows.net/landing-hospital-b/encounters.csv
+https://pbhealthcare25blob.blob.core.windows.net/landing-hospital-b/patients.csv
+https://pbhealthcare25blob.blob.core.windows.net/landing-hospital-b/providers.csv
+https://pbhealthcare25blob.blob.core.windows.net/landing-hospital-b/transactions.csv
+
+	== So we will have 2 different instance of 'Azure SQL DB':
+	i) Hospital-A: 
+	- Database name: 'healthcare-hospital-a'
+	- Server: 'pb-healthcare-emr-data;	-- (first time created)
+	- Server admin login: 'healthcare-sql-admin'
+	- Password: 25@projecthc
+
++
+CREATE TABLE departments(
+DeptID varchar(10),
+Name varchar(30),
+primary key(DeptID)
+);
+
++
+CREATE TABLE encounters(
+EncounterID varchar(20),
+PatientID varchar(20),
+EncounterDate string,         -- string not worked
+EncounterType string,
+ProviderID varchar(20),
+DepartmentID varchar(20),
+ProcedureCode integer,
+InsertedDate varchar(15),
+ModifiedDate varchar(15),
+primary key(EncounterID)
+);
+
++
+CREATE TABLE patients(
+PatientID varchar(20),
+FirstName varchar(20),
+LastName varchar(20),
+MiddleName varchar(20),
+SSN varchar(15),
+PhoneNumber varchar(25),
+Gender varchar(10),
+DOB varchar(15),
+Address varchar(70),
+ModifiedDate varchar(15),
+primary key(PatientID)
+);
+
++
+CREATE TABLE providers(
+ProviderID varchar(20),
+FirstName varchar(20),
+LastName varchar(20),
+Specialization varchar(30),
+DeptID varchar(10),
+NPI varchar(10),
+primary key(ProviderID)
+);
+
++
+CREATE TABLE transactions(
+TransactionID varchar(20),
+EncounterID varchar(20),
+PatientID varchar(20),
+ProviderID varchar(20),
+DeptID varchar(20),
+VisitDate varchar(20),
+ServiceDate varchar(20),
+PaidDate varchar(20),
+VisitType varchar(20),
+Amount float,
+AmountType varchar(15),
+PaidAmount float,
+ClaimID varchar(20),
+PayorID varchar(20),
+ProcedureCode integer,
+ICDCode float,
+LineOfBusiness varchar(15),
+MedicaidID varchar(20),
+MedicareID varchar(20),
+InsertDate varchar(15),
+ModifiedDate varchar(15),
+primary key(TransactionID)
+);
+
+
+
+	ii) Hospital-B:
+	- Database name: 'healthcare-hospital-b'
+	- Server: 'pb-healthcare-emr-data;	-- (already existed)
+	- Server admin login: 'healthcare-sql-admin'
+	- Password: 25@projecthc
+
+
++
+CREATE TABLE departments(
+DeptID varchar(10),
+Name varchar(30),
+primary key(DeptID)
+);
+
++
+CREATE TABLE encounters(
+EncounterID varchar(20),
+PatientID varchar(20),
+EncounterDate string,         -- string not worked
+EncounterType string,
+ProviderID varchar(20),
+DepartmentID varchar(20),
+ProcedureCode integer,
+InsertedDate varchar(15),
+ModifiedDate varchar(15),
+primary key(EncounterID)
+);
+
++
+CREATE TABLE patients(
+ID varchar(20),
+F_Name varchar(20),
+L_Name varchar(20),
+M_Name varchar(20), //*//
+SSN varchar(15),
+PhoneNumber varchar(25),
+Gender varchar(10),
+DOB varchar(15),
+Address varchar(70),
+ModifiedDate varchar(15),
+primary key(PatientID)
+);
+
++
+CREATE TABLE providers(
+ProviderID varchar(20),
+FirstName varchar(20),
+LastName varchar(20),
+Specialization varchar(30),
+DeptID varchar(10),
+NPI varchar(10),
+primary key(ProviderID)
+);
+
++
+CREATE TABLE transactions(
+TransactionID varchar(20),
+EncounterID varchar(20),
+PatientID varchar(20),
+ProviderID varchar(20),
+DeptID varchar(20),
+VisitDate varchar(20),
+ServiceDate varchar(20),
+PaidDate varchar(20),
+VisitType varchar(20),
+Amount float,
+AmountType varchar(15),
+PaidAmount float,
+ClaimID varchar(20),
+PayorID varchar(20),
+ProcedureCode integer,
+ICDCode float,
+LineOfBusiness varchar(15),
+MedicaidID varchar(20),
+MedicareID varchar(20),
+InsertDate varchar(15),
+ModifiedDate varchar(15),
+primary key(TransactionID)
+);
+
+------------
+2) Datasets:
+------------
+**Notes: Here, we'll be creating the Datasets in a generic fashion(means, we won't hardcode anything here)
+
+1) Azure SQL DB: 
+	- Dataset name: 'generic_sql_ds'
+	- select the 'Linked service' which we created
+
+	= Set the parameters: (we need these)
+		- 'db_name'  (comes from Linked service, here we'll not pass & see it in Pipeline)
+		- 'schema_name' (create in 'Parameters tab', here we'll not pass & see it in Pipeline)
+		- 'table_name' (create in 'Parameters tab', here we'll not pass & see it in Pipeline)
+
+2) --> We want to read our configuration file also: (in ADLS Gen2 - delimited file(csv))
+	- Dataset name: 'generic_adls_flat_file_ds'
+	(To implement the Meta Data Driven Architecture)
+	So need to,
+	- create "Delimited Text - csv" dataset
+	- attach to "ADLS Gen2" Linked Service with it. ('adls_files_ls')
+
+	= Set the parameters: (we need these)
+		- 'container_name'
+		- 'file_path' (Folder name)
+		- 'file_name'
+
+		--> File path: configs/emr/load_config.csv
+	- First row as header: checked
+
+3) --> As we take the data from the 'Azure SQL DB' --> 'ADLS Gen2' (landing-bronze-parquet)
+   (we would need a 'dataset for parquet file')
+
+	- Dataset name: 'generic_adls_parquet_file_ds'
+	- attach to same "ADLS Gen2" Linked Service with it. ('adls_files_ls')
+	= Set the parameters: (we need these)
+		- 'container_name'
+		- 'file_path' (Folder name)
+		- 'file_name'
+	- Compression type: snappy
+
+4) For writing to the 'Audit Table' (Databricks Delta Lake)
+   (we also need a Dataset for this)
+
+	- Dataset name: 'azure_databricks_deltalake_ds'
+	- attach to "Azure Databricks DeltaLake" Linked Service with it. ('databricks_deltalake_ls')
+
+	= Set the parameters: (we need these)
+		- 'schema_name' (database name)
+		- 'table_name'
+	- Compression type: snappy
+
+
+----------------------------------------------
+3) Create a Pipeline (activities inside that): (is made of several activities)
+----------------------------------------------
+
+1) --> 'pl_emr_src_to_landing'
+
+== Lookup Activity: (it will read the 'config' file) from "configs/emr/load_config.csv" path
+	- container: configs
+	- file_path: emr
+	- file_name: load_configs.csv
+- "File path type": select, 'File path in dataset'
+- Recursively: Checked
+
+== "For Each Activity": (for each entry of the 'load_config.csv' file --> we want to perform following list of activities)
+
+**Notes: If Pipeline has run earlier then it would have 'encounters' file inside the Container 'Bronze' and Folder 'hosa/hosb'
+
+(We want to check, is there any 'encounters' (parquet) file already present in a Container 'bronze' -> Folder 'hosa/hosb') -- As we know Container 'Bronze' only holds 'parquet' file.
+
+**Notes: 'Lookup Activity' returns each row one-by-one from the 'load_config.csv' file.
+-- e.g:
++++++++++++++++++++++
+** "load_config.csv":
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+database,datasource,tablename,loadtype,watermark,is_active,targetpath
+trendytech-hospital-a,hos-a,dbo.encounters,Incremental,ModifiedDate,0,hosa
+trendytech-hospital-a,hos-a,dbo.patients,Incremental,ModifiedDate,0,hosa
+trendytech-hospital-a,hos-a,dbo.transactions,Incremental,ModifiedDate,0,hosa
+trendytech-hospital-a,hos-a,dbo.providers,Full,,0,hosa
+trendytech-hospital-a,hos-a,dbo.departments,Full,,0,hosa
+trendytech-hospital-b,hos-b,dbo.encounters,Incremental,ModifiedDate,0,hosb
+trendytech-hospital-b,hos-b,dbo.patients,Incremental,Updated_Date,1,hosb
+trendytech-hospital-b,hos-b,dbo.transactions,Incremental,ModifiedDate,0,hosb
+trendytech-hospital-b,hos-b,dbo.providers,Full,,0,hosb
+trendytech-hospital-b,hos-b,dbo.departments,Full,,0,hosb
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+|1)
+--> "Get Metadata Activity":
+	- name: 'File_Exists'
+	- Dataset: 'generic_adls_parquet_file_ds'
+
+	= Dataset properties:
+	- container: 'bronze'  -- (we will hardcode it)
+	- file_path: @item().targetpath			-- (hosa) dynamically get it.
+	- file_name: @split(@item().tablename, '.')[1]	-- (encounters) dynamically get it.
+
+e.g. tablename: "dbo.encounters" --> returns list of ['dbo', 'encounters'], and we can access it using indexing.
+
+*Notes: Here, "item" will receive value row-by-row from the previous 'Lookup Activity'
+-e.g.
+       database,datasource,tablename,loadtype,watermark,is_active,targetpath
+Row 1: trendytech-hospital-a,hos-a,dbo.encounters,Incremental,ModifiedDate,0,hosa
+
+-> Here, it will automatically check for, "bronze/hosa/encounters.parquet" (parquet files), because we've given the 'generic_adls_parquet_file_ds' dataset to check for.
+
+-> That means, when previously we would have run the Pipeline, we would have got the 'parquet file' for sure. Because our Pipeline was run earlier, so now when we run next time the Pipeline it sees that (parquet file) this is there, so we should move it to "Archive" that's what we're planning to do now. (because it detected that 'parquet file' inside the specified Folder.)
+	
+	- Field list: "Argument"
+		- Exists
+
+**Notes: If the file exists (that means if it is True)
+
+|2)
+--> "If Condition Activity":
+
+- // Inside If Condition //
+- Under "Activities" Tab:
+	- Expression: @equals(activity('File_Exists').output.......)
+
+// What we want to do if condition is True? //
+--> We want to move it from Source 		  -->  Archive
+			- container: 'bronze'	     - container: 'bronze'  	
+			- file_path: 'hosa'	     - file_path: 'archive' (Year/Month/Day)
+			- file_name: 'encounters'    - file_name: 'list of files'
+
+## // Inside 'True' Condition // ##
+--> "Copy Data Activity"
+
+	- name: 'Archive File'
+++ Source:
+	- Dataset: 'generic_adls_parquet_file_ds'
+
+	= Dataset properties:
+	- container: 'bronze'  -- (we will hardcode it)
+	- file_path: @item().targetpath			-- (hosa) dynamically get it.
+	- file_name: @split(@item().tablename, '.')[1]	-- (encounters) dynamically get it.
+
+++ Sink:
+	- Dataset: 'generic_adls_parquet_file_ds'
+
+	= Dataset properties:
+	- container: 'bronze'  -- (we will hardcode it)
+	- file_path: we dynamically get it, like below,
+
+@concat(item().targetpath,'/archive/',formatDateTime(utcNow(),'yyyy'),'/',formtDateTime(utcNow(), '%M'),'/',formatDateTime(utcNow(), '%d'))
+	
+	(It gets current Timestamp and extract the year, month, day)
+	--> "hosa/archive/year/month/day"
+	---> "hosa/archive/2025/11/22"   (this will be our 'file_path')
+
+	- file_name: @split(@item().tablename, '.')[1]	-- (encounters) dynamically get it.
+
+
+## // Inside 'False' Condition // ##
+	--> We nothing have to do..
+	- If it is True(it means, if file is existed), then move it to 'Archive' Folder, so that if we run the Pipeline multiple times, the 'parquet files' which were already present inside the Container 'Bronze', it will not colide with the existing 'parquet' files.
+---------------------------
+==> Workflow looks like:
+------------------------
+--> First read the 'config_log.csv' file
+
+--> Iterate over each 'entity' one-by-one (as we have 10 entries)
+	- using 'For Each Activity' (as we have)
+	e.g. database,datasource,tablename,loadtype,watermark,is_active,targetpath
+	     trendytech-hospital-a,hos-a,dbo.encounters,Incremental,ModifiedDate,0,hosa
+
+--> (It means, if the 'encounters.parquet' file is present in 'Bronze' Container, --> then we move it to 'Archive' Folder, before doing any other things)
+	- If it is not present in 'Archive' Folder --> then, no need to archive, because it's not there(in 'Bronze' Container) and follow the remaining steps.
+
+=== //What are the remaining steps after archiving? //
+--> We take the data from 'Azure SQL DB' --> and put in 'Bronze' Container
+
+	- Source: 'generic_sql_ds'
+	- Sink: 'generic_adls_parquet_file_ds'
+
+|3)
+--> "If Condition Activity":
+
+** // we'll again check, if it's a Incremental load / Full load? //
+(It means, if it is 'Incremental load' --> we have different strategy | if it is 'Full load' --> we have different strategy)
+
+- How we will get it? (as we have each row's entry)
+	e.g. database,datasource,tablename,loadtype,watermark,is_active,targetpath
+	     trendytech-hospital-a,hos-a,dbo.encounters,Incremental,ModifiedDate,0,hosa
+
+
+## // Inside 'If' Condition // ##
+- Under "Activities" Tab:
+	- Expression: @equals(Item().loadtype, 'Full')
+
+(If 'loadtype' is 'Full' then what we need to do?)  --> (it means, if it is True)
+
+Then perform,
+## // Inside 'True' Condition // ##
+--> "Copy Data Activity"
+
+	- name: 'Full_Load_CP'
+++ Source:
+	- Dataset: 'generic_sql_ds'
+
+	= Dataset properties:
+	- 'db_name': @item().database  --  'trendytech-hospital-a'
+	- 'schema_name': split(@item().tablename, '.')[0]  --  'dbo'
+	- 'table_name': split(@item().tablename, '.')[1]  --  'encounters'
+
+	- Use query: select, 'Query'
+	- Query: // What it has to get from the Table? //
+		- @concat('select *,''',@item().datasource,''' as datasource from ', @item().tablename)
+		- with new added column as 'datasource' (whether it's coming from 'hosa/hosb'?)
+
+++ Sink: %%%
+	- Dataset: 'generic_adls_parquet_file_ds'
+
+	= Dataset properties:
+	- container: 'bronze'  -- (we will hardcode it)
+	- file_path: we dynamically get it, like below,
+	
+- 'db_name'
+- 'schema_name'
+- 'table_name'
+
+
+// Now, once the data is copied, what we want to do? //
+(we mentioed, we are maintaing the 'Audit Table' so that we can keep a entry and once above 'Full_Load_CP' Copy Data Activity is done, then we want to add an entry in the 'Audit Table')
+	- 'Audit Table' is nothing but it is stored in 'Databricks Delta Lake'
+|
+--> "Lookup Activity"
+	- General > Name: Insert_Logs_Full_Load
+	- Settings:
+		- Source dataset: 'azure_databricks_deltalake_ds'
+	- First row only: checked
+	- Use query: If, 'Table' --> then we have to provide "schema_name & table_name" inside the Dataset properties. (but we can give 'dummy value' now, like, 'aa', 'a')
+
+	- Use query: If, 'Query'
+	- Query:
+
+@concat('insert into audit.load_logs(data_source,tablename,numberofrowscopied,watermarkcolumnname,loadstate) values(''',item().datasource,''',''',item().tablename,''',''',activity('Full_Load_CP').output.rowscopied,''',''',item().watermark,''',''',utcNow(),''')')
+
+
+
+** // Till now, Workflow is: // (Summary of the 'Full Load' process)
+-------------------------------
+--> First, we saw the 'config_log.csv' file for each entry (let's say, 1'st row) --> if 'parquet file' is already present there, we archive it
+  --> After archiving we see whether it's a 'Full/Incremental load', if it's a 'Full load' (Condition matched - True block will be executed)--> we take all the columns + 1 extra column, and create a 'parquet file', once it's done --> then, we put an entry in the 'Audit table' (in Delta Lake/Table)
+
+-->If it's an 'Incremental Load' (Condition not matched - False block will be executed)
+++ (and that will be our Incremental Pipeline where 'watermark' column will be handy)
+
+## // Inside 'False' Condition // ##
+
+**Notes: whenever we have to handle 'Incremental Load', first we have to check 'Delta Table', that what was the last time when Pipeline ran?
+   - and, we have to take the data only after that time(after the last ran/executed time)
+
+   - So, we require a 'Lookup Activity': whenever we have to read something from a 'File/Table', we will require a 'Lookup Activity'.
+
+
+|
+--> "Lookup Activity"
+	- General > Name: Fetch_Logs
+	- Settings:
+		- Source dataset: 'azure_databricks_deltalake_ds'
+	- First row only: checked
+	- Use query: If, 'Table' --> then we have to provide "schema_name & table_name" inside the Dataset properties. (but we can give 'dummy value' now, like, 'aa', 'a')
+
+	- Use query: If, 'Query'
+	- Query:
+
+------------------------------------------
+** Pipeline Design For 'Incremental Load':
+------------------------------------------
+First,
+1) we check the 'Audit Table' (How we're checking?) -(like, when was the Pipeline last ran?)
+
+// From 'Audit Table' what do we want? -> 'load time'// (that means, when this or till what time the data is loaded in the previous/last run?)
+
+. max(loaddate) --> give you max date with Timestamp.
+. cast(max(loaddate) as date) --> conver it into only 'Date part'.
+. coalesce(cast(max(loaddate) as date),''','1900-01-01',''') --> If it's running for the 1'st time then we will not having any max Date, so it will return NULL, so to avoid NULL and fill with specific value, we're using 'coalesce' here.
+
+@concat('coalesce(cast(max(loaddate) as date),''','1900-01-01',''') as last_fetched_date from audit.load_logs where','data_source=''',item().datasource,''' and tablename=''',item().tablename,''' ')
+
+
+** Audit Table Columns:
+---------------------------
+id, data_source, tablename, numberofrowscopied, watermarkcolumnname, loaddate
+
+
+- e.g 23rd Nov 2025: 8:54 PM 
+      23rd Nov 2025 (casted date from Timestamp)
+
+**Notes:
+	We've handled the data till this part (23rd Nov 2025), but when we handle newly we handle this date and beyond (we'll still handle this date again so that if there is any overlap for this date it will be taken care.)
+
+= Let'say we handle for this date again, that means, all the records which were processed till 8:54 PM will also reprocess (that's fine)
+	- on a safer side, we'll consider ">=Date" next time.
+	- that means, all the records which we have processed till 8:54 PM earlier will also be reprocessed next time. (that's fine, because we want to have safer approach)
+	- so, we still consider for this date (23rd Nov 2025) and any other date beyond it.
+
+= Generally, dealing with 'EMR' the system are not that great and might have this kind of issues so we want to be very-very safe and make sure we are ready to reprocess because anyways our Pipeline will be idempotent Pipeline (that means, it's not that if we reprocess/reload it will create issues/duplicate records - it won't - it will merge it. Our Pipeline will still have the same results no matter how many times we run it.)
+
+|
+--> "Copy Data Activity"
+
+	- name: 'Incremental_Load_CP'
+++ Source:
+	- Dataset: 'generic_sql_ds'
+
+	= Dataset properties:
+	- 'db_name': @item().database  --  'trendytech-hospital-a'
+	- 'schema_name': split(@item().tablename, '.')[0]  --  'dbo'
+	- 'table_name': split(@item().tablename, '.')[1]  --  'encounters'
+
+	- Use query: select, 'Query'
+	- Query: // What it has to get from the Table? //
+		- @concat('select *,''',@item().datasource,''' as datasource from ', @item().tablename,' where ',item().watermark,' >= ''',activity('Fetch_Logs').ouput.firstrow.last_fetched_date,''' ')
+
+*Notes:	 we are saying get me only records 'after or equal (>=)' to this particular Date (23rd Nov 2025)
+-> Whatever we've processed might come again, but since later we would implement 'SCD', it will merge properly, we do not have to worry.
+
+++ Sink:
+	- Dataset: 'generic_adls_parquet_file_ds'
+
+	= Dataset properties:
+	- container: 'bronze'  -- (we will hardcode it)
+	- file_path: @item().targetpath
+	- file_name: @split(item().tablename, '.')[1]
+	
+
+==> // And, once all of this is done //
+--> Then we go back to our 'Delta Table' and store this last/current Timestamp. We say we sorted all the data and taken care till current Timestamp. So after that to write again to a Table --> we require a 'Lookup Activity'
+	
+|
+--> "Lookup Activity"
+	- General > Name: Insert_Logs_Incremental_Load
+	- Settings:
+		- Source dataset: 'azure_databricks_deltalake_ds'
+	- First row only: checked
+	- Use query: If, 'Table' --> then we have to provide "schema_name & table_name" inside the Dataset properties. (but we can give 'dummy value' now, like, 'aa', 'a')
+
+	- Use query: If, 'Query'
+	- Query:
+
+@concat('insert into audit.load_logs(data_source, tablename, numberofrowscopied, watermarkcolumnname, loaddate) values(''',item().datasource,''',''',item().tablename,''','''activity('Incremental_Load_CP').output.rowscopied,''',''',item().watermark,''',''',utcNow(),''')')
+
+== Audit Table Columns:
+---------------------------
+id, data_source, tablename, numberofrowscopied, watermarkcolumnname, loaddate
+
+
+	--> 'Current Timestamp' we are mentioning, that means, all the data sorted till current Timestamp, that means, all the data we've taken care loaded till the current Timestamp.
+
+------------------------------------
+** // Final Workflow Execution: //**
+------------------------------------
+
+1) Lookup Activity: to read 'load_config.csv' file from 'ADLS Gen2'
+--> then for each entry, we have
+
+2) ForEach Activity:
+--> and, for each entry we're seeing its 'Metadata' (what all elements are there)
+	2.1) Get Metadata Activity:
+		- giving medatdata related information.
+
+	2.2) If Condition Activity:
+	// If condition matched(file is present) - True //
+	--> If file is already present there(in Container 'Bronze'), we archive it (put it in Container 'Bronze' -> Folder 'archive/year/month/day')
+
+	// If condition not matched(file is not present) - False //
+	--> No need to do anything, go ahead with the next task.
+
+	2.3) If Condition Activity:
+	2.3.1)
+	// If condition matched(if loadtype is 'Full Load') - True //
+	
+	2.3.1.1) Copy Data Activity:
+	--> We take all the Data -> put it in a 'parquet file'
+
+	2.3.1.2) Lookup Activity:	
+	--> and, update the 'Audit Table'
+
+
+	2.3.2)
+	// If condition not matched(if loadtype is 'Incremental Load') - False //
+	
+	2.3.2.1) Lookup Activity:
+	--> Then we first check, till what last time we have loaded? -> we get that
+
+	2.3.2.2) Copy Data Activity:
+	--> and we take all the data after or equal to that date ( >= last Date)
+
+	2.3.2.3) Lookup Activity:
+	--> Then again we finally update the 'Audit Table'.
+
+--------------------------------------------------------------
+
+==> After that go 'Trigger' -> Trigger now
+	-> go to 'Monitor Tab' to monitor the execution
+
+--------------------------------------------------------
+**Notes: Here, one challenges with the current Pipeline:
+--------------------------------------------------------
+
+-> As we have 10 entries in 'load_config.csv' File (that means, 10 dataset will be loaded 1-by-1 from the tables)
+
+// So, there are 2 options: // (It could have been done)
+1) Sequential: right now, out Pipeline is sequential 
+	// You might say WHY sequential? //
+- the thing is that, when you see a 'Audit Table', it has "id" columns which is a 'auto-increment' column, so in parallel, we can not update this and this can not happen. Only in sequential this can happen.
+	-> In Part-2, we'll solve it and make it 'parallel', because it should not be sequential, because one Table is not dependent on another so it should not be sequential. So this is one of the limitation that this sequential right now.
+	-> Because, with this 'auto-increment' if we try to update this 'auto-increment' in parallel, it will fail. That's why the Pipeline is sequential.
+
+// How to make it sequential? //
+--> In Pipeline --> Settings Tab --> Sequential: checked
+(If it is 'unchecked' then it will be Parallel, but it will fail because of 'auto-increment' that each thread will try to update that will not happen)
+
+2) Parallel: Here, we need more resources, but that's a different activity.
+
+--------------------------------------------
+==) // Part 2: What we'll be looking next? //
+--------------------------------------------
+
+1) --> Implement the 'Silver layer' (what you will do here?)
+	- We take the data from 'Bronze layer'
+	- Making the data as [cleaned/refined/transformed/filtered/performed 'data quality check'/joined the data if needed]
+	- We will implement a 'CDM', 'SCD-2', and data will be stored in a 'Delta Tables'
+	(No longer just plain 'parquet files', but Delta Tables)
+
+2) --> Implement the 'Gold layer' (creating 'Facts & Dimensions Tables')
+
+3) --> Implement the 'Key Vault' (for storing the credentials) 
+	- as part of best industry practice.
+
+4) --> Improve the naming conventions (as per the industry)
+
+5) --> Making existing ADF Pipeline 'parallel'
+
+6) --> How to get the data from API's (NPI & CPT codes)
+
+7) --> Talk about 'Claims data' provided by 'Insurance Company'
+
+8) --> We have not implemented 'is_active' flag (0/1)
+	- 'is_active' flag implementation
+
+9) --> Implement 'Unity Catalog'
+	- Right now, our Catalog is a 'Hive Metastore' (which is Local & not recommended as per Industry practice)
+	- because other 'Workspaces' cannot see what databases/tables/views and all you have. (means, when we are in some other Databricks Workspace, we can not see 'Hive Metastore')
+		++ That's where it's always good to have a 'Unity Catalog' (Centralized Metadata Repository) so that it acts as a 'Centralized thing' and other 'Workspaces' can also interact with it.
+		++ So, better thing would have been that if we would have done/created it this 'audit' database as part of our 'Unity Catalog' - so that it can be discoverable outside also (other Teams/Workspace users can access it)
+
+============================================================================================
+-----------------------------------------
+==) // Part 2: Project continuation... //
+-----------------------------------------
+
+-----------------------------------------
+++ // Overview of the Bronze Layer: //
+-----------------------------------------
+
+1) ==> EMR Data: coming from 2 different sources [Hospital-a | Hospital-b] -- 'Azure SQL DB'
+	5 Datasets:
+	-----------
+	- Patients
+	- Providers
+	- Departments
+	- Encounters
+	- Transactions
+	
+2) ==> Claims Data in 'Landing' Folder (provided by Insurance Company)
+--------------------------------------
+	--> We already got the 'EMR Data' in 'Bronze layer' in 'parquet format'.
+	by using 'ADF Pipeline' (which is 'Generic & Metadata Driven Pipeline' so that we get the parameters from a 'load_config.csv' File)
+	--> Above 5 Datasets (EMR Data) already placed in a 'Bronze layer', so in this case the 'landing' layer is skipped.
+	--> 'landing' layer is when some 3rd-party dumps the data in the 'landing' layer.
+
+	--> 'Insurance Provider' dumps the 'Claims Data' in 'landing' Folder. (flat files)
+
+
+3) ==> NPI/ICD Code Dataset (need to fetch form the Public APIs)
+
+4) ==> CPT Code Dataset (we could have called Public API, but assume it's provided by a 3rd-party vendor in 'landing zone' as a 'Flat file')
+
+
+==) Layer wise file structure:
+-----------------------------
+landing		--> Bronze	  --> Silver	   --> Gold 
+flat(csv) files     parquet files     Delta Tables     Delta Tables
+
+
+*Notes: 
+--> In some cases the 'landing zone' will be skipped. What are those cases?
+	- When we are directly pulling from a Database/HTTPs, etc.
+	- When we ourself calling the public APIs, we directly bring it to 'Bronze layer'. We can skip the 'landing zone'.
+	But,
+	- If some 3rd-party has to put they will put it in 'landing zone' itself.
+
+---------------------------------------------------------------------
+1) ==) EMR Data: from 'Azure SQL DB' --> (bring it to 'Bronze layer')
+
+2) ==) Claims Data: (Flat files in 'landing zone')
+
+3) ==) NPI/ICD Code Dataset: from 'APIs') --> (bring it to 'Bronze layer')
+
+4) ==> CPT Code Dataset (we could have called Public API, but assume it's provided by a 3rd-party vendor in 'landing zone' as a 'Flat file')
+---------------------------------------------------------------------
+
+==) // Step 1: first set the 'Bronze Layer': (parquet files) //
+---------------------------------------------------------------
+=> Claims Data: from 'landing zone' --> 'Bronze layer'
+
+=> NPI/ICD Data: from 'APIs call' --> 'Bronze layer'
+
+=> CPT Data: from 'landing zone' --> 'Bronze layer'
+
+*Notes: in 'Bronze layer' we are keeping in 'parquet format'(quite optimized).
+	- It's a 'column-based' file format and when we use it we get really really good compression also. (best format to be used along with 'Apache Spark')
+
+
+-----------------------------------------
+++ // Explanation of ICD and CPT Codes: //
+-----------------------------------------
+
+==) // How are ICD and CPT codes different? //
+1) ICD code:
+--> It's 10 digit codes (International Classfication of Disease) describe the patient's diagnosis.
+--> In other words, they refer to the specific condition that's being treated, such as ADHD, Generalized Anxiety Disorder (GAD)
+
+2) CPT Codes= (Current Procedural Terminology)
+--> CPT codes describe 'clinical procedures and diagnostic and care activities' on the healthcare system.
+(The procedure that the medical is giving)
+--> In other words, they explain what the health care provider did during an interaction with or for patient. (so, it's more like a procedure)
+----------------------------------------------------
+
+==) // Once the 'Bronze layer' is set, what we'll do? //
+--> Then, we'll try to set our 'Silver layer'.
+(that means, we'll get the Data from 'Bronze layer' --> 'Silver layer')
+
+-----------------------------------------------------------
+++ // Transition from 'Bronze layer' --> 'Silver layer': //
+-----------------------------------------------------------
+--> Clean / Refine / Filter / Transform / Quality Check / Join -- data.
+--> CDM:  Let's say we have 2 different Hospitals
+	- and each Hospital has a different 'patient' table
+		- e.g. let's say, some 'column name' is different or
+		- 'Schema' is different.
+		--> So, we have to bring it under a 'common Schema'
+
+--> SCD-2: To maintain the history using SCD-2 (Industry practice)
+ 	- If some record get changed we do not lose on the 'history'
+
+--> Finally, we want to keep the data in a 'Delta Table' (parquet files + delta_logs on top of that), so we can perform 'transactions and updates' and all. (it's a refined version of parquet)
+	== What is that something?
+	--> It's an 'extra logs' which helps us to make transaction / updates / we can ve ACID compliant and all of that.
+
+==) // Once the 'Silver layer' is set, what we'll do? //
+(we'll get the Data from 'Silver layer' --> 'Gold layer')
+
+-----------------------------------------------------------
+++ // Transition from 'Silver layer' --> 'Gold layer': //
+-----------------------------------------------------------
+--> Here, we'll create a 'Facts & Dimensions' Tables.
+--> Together these can be joined to create various Reports, can serve various queries, and various can KPIs can be calculated using these, such as,
+	== We want to understand,
+	-> like, how many claims are nor processed within 3 months?
+
+
+------------------------------------
+++ // Discussion on Enhancements: // Mahadev
+------------------------------------
+*1) --> Implement the 'Key Vault' (for storing the credentials) 
+	- as part of best industry practice.
+
+*2) --> Improve the naming conventions (as per the industry)
+
+*3) --> Making existing ADF Pipeline 'parallel'
+--> If you remember that last time when we were bringing those 10 tables (5 from one Database & 5 from another Database) it was all 'sequential' and the reason being in the 'Audit Table', we have an 'auto-increment Key' and if we have the 'auto-increment Key' people can not update in parallel.
+	- That's where we have to keep it 'sequential' and the Pipeline was taking a lot of time to run.
+
+--> Now, we realize that this 'auto-increment Key' is not required. Why to have that?
+So, we remove it and we can now make it 'parallel' so that Pipeline can run in parallel and can complete very-very fast.
+
+*4) --> We have not implemented 'is_active' flag (0/1) (even though we were getting that in out 'load_config.csv' File)
+	- 'is_active' flag implementation
+		- If 'is_active' is 0 --> Pipeline should not run
+		- If 'is_active' is 1 --> Pipeline should run
+
+5) --> Implement 'Unity Catalog'
+--> Last time, we were using 'Hive Metastore' for storing our 'Metadata' (not recommended approach - kind of deprecated, something which will go away soon)
+--> So if you really want it to be shared across 'multiple Workspaces' and everyone can see that, then it's always better to use an "Unity Catalog".
+
+6) --> As part of best practices, we should be adding "retries" in our 'ADF Pipeline'
+that means, if due to some network issue/whatever if it fails it should try again.
+	- So, we'll add "retries".
+-------------------------------------------+
+
+==) // Few things to Note: //
+-----------------------------
+
+1) --> If you notice, there is some 'data discrepancy' and all that can happen. Even if we have tried to correct it to some extent but still 'data discrepancy' can happen because,
+	-> All the data provided to us is generated using "Faker Module"
+
+	*Notes: Anyways, we have to understand the logic and complete workflow even if 'data discrepancy' -- that's fine.
+
+2) --> Due to having 'data discrepancy' some JOINS might not work.
+
+3) We have even improved the 'naming conventions' & created the different folder structure and organized the code well.
+
+------------------------
+++ // Setup Overview: //
+------------------------
+
+Databricks Workspace name: tt-hc-adb-ws
+Folders: Set up:
+----------------
+Flow is: Catalog name --> Schema name(Database) --> Tables name --> Views name
+
+		Catalog name: tt-hc-adb-ws | Database name: .audit | Table name: load_logs
+
+		++ 'audit_ddl' Notebook:
+		------------------------
+		%sql
+		CREATE SCHEMA IF NOT EXISTS tt-hc-adb-ws.audit;
+
+		CREATE TABLE IF NOT EXISTS tt-hc-adb-ws.audit.load_logs(
+			data_source STRING,
+			tablename STRING,
+			numberofrowscopied INT,
+			watermarkcolumnname STRING,
+			loaddate TIMESTAMP,
+		);
+
+		truncate tt-hc-adb-ws.load_logs
+
+		select * from truncate audit.load_logs
+
+		
+		
+		++ 'audit_mount' Notebook:
+		--------------------------
+		Video Time: 3.38.32
+
+
+	 API extracts
+	 Silver
+	 Gold
+	 datasets
+
+-----------------------------------
+++ // Key Vault Setup and Usage: //
+-----------------------------------
+
+==) // Create a Key Vault: //
+-----------------------------
+
+
+	+ Key Vault name: 'pb-health-care-kv' (in Azure)
+
+	+ Secrets:
+		- sql-db-pwd
+		- pb-adls-access-key
+		- pb-hc-adb-ws-access-token --> 'dapid55d4f2620ad10473861e492932187b8'
+
+	+ There is a way that we create a 'Scope' in Databricks:
+		- Databricks Scope name: 'pb-hc-project-scope'
+
+**// Very Important Notes //**
+- The Database password we have stored in Key Vault with 'sql-db-pwd' as the Key
+	- Now, can Databricks able to access the Key Vault directly? --> "No"
+	(Then, how will it be able to retrieve Database password which we have stored)
+	=====//
+	That means, Databricks will not be able to directly communicate to Key Vault, 
+	rather it goes through 1 other step in-between:
+		- So, we have to create a 'Secret Scope' in Databricks: 
+		- It looks like,
+		- [Databricks --> Secret Scope --> Key Vault]
+
+		- If you remember, ADF can directly access the Key Vault, 
+		- but in Databricks, it's 3'rd party service, so it can not directly access the Key Vault, it goes through 'Secret Scope'.
+
+	= Let's see, how to create a 'Secret Scope':
+	--------------------------------------------
+	Steps: Launch Databricks -> go at the end of URL -> write, "#secrets/createScope" -> Hit enter -> it will bring you to the 'Secret Scope' creation page.
+		- Scope name: 'pb-hc-project-scope'
+		- Manage Principal: All Users
+		=: Azure Key Vault :=
+		- DNS Name:https://pb-health-care-kv.vault.azure.net/
+		- Resource ID: /subscriptions/6d39046c-a70e-406d-a15d-f5c1b89e8a1f/resourceGroups/PB-HealthProjectDev-rg/providers/Microsoft.KeyVault/vaults/pb-health-care-kv
+		- click on 'Create'
+ 
+	- How to find DNS Name & Resource ID:
+	- Steps: Go to Key Vault -> Settings -> Properties
+		- DNS Name: copy 'Vault URI'
+		- Resource ID: copy 'Resource ID'
+	//=====
+--------------------
+
+==) If you want to access the Key Vault from different Azure Services:
+
+Steps:
+--> Go to 'App registration'
+--> Create an App for the different service (E.g. ADF, ADB, etc)
+--> Go to the 'Key Vault' --> Access Policies --> select permission based on need --> in 'Principal', select your 'App' which you've created.
+
+
+-------------------------
+++ // Linked Services: //
+-------------------------
+--> Till now we have created these Linked Services:
+
+1) Azure SQL DB --(using Password) --> 'hosa_sqldb_ls'  (Done)
+2) ADLS Gen2 --(using Access Token) --> 'pb_hc_adls_ls'  (Done)
+3) Delta Lake --(storing data in Delta Table) --> 'pb_hc_dl_ls' (Done)
+4) Key Vault --(new one) --> 'pb_hc_kv_ls'  (Done)
+5) Databricks --> 'pb_hc_adb_ls'
+	- Because, our Data Factory should be able to connect to Databricks to execute that Notebook, and for that Linked Service would be required. 
+
+	*Notes: 'AutoResolveIntegrationRuntime'
+	--> If you want more resources for your 'Azure Data Factory', then you can create your own 'IntegrationRuntime', but we're going with the available one.
+
+
+---------------------------
+++ // Datasets Overview: //
+---------------------------
+--> Till now we have created these Datasets:
+
+1) Azure SQL ds
+2) Generic ADLS (flat file) DS
+3) Generic ADLS Parquet file DS
+4) Databricks Delta Lake DS
+
+
+-----------------------------------
+++ // Active and Inactive Flags: //
+-----------------------------------
+
+--> 'is_active' flag '0' | 'is_active' flag '1'
+
+==) Current Pipeline Workflow:
+------------------------------
+--> We were reading the 'log_config.csv' file --> for each entry in the 'log_config.csv' file we were seeing 
+
+--> For Each Activity:
+	+ Get Metadata Activity:
+	- get the Metadata to check if the file exists or not?
+
+	+ If Condition 2:
+	- if the file exists(True) -> then move it to 'Archive' Folder
+	- Else if not exists(False) -> then do the next tasks
+
+	+ If Condition 1: 
+	/ we were checking it's Full Load / Incremental Load? /
+	- if "Full Load"(True):
+		-> Implement the 'Full Load' (Copy Data) --> Insert_Logs_Full_Load (LookupA)
+	- Else "Incremental Load"(False):
+		-> Fetch_Logs(LookupA) -- (find the last executed/ran Date)
+		-> Implement the 'Incremental Load' (Copy Data) -- (Load all records >= last executed/ran Date)
+		-> Insert_Logs_Incremental_Load (LookupA)
+
+	*Notes: Here, "If Condition 1: --> (We disabled it now)" WHY, becaue?
+		- Now, before executing "If Condition 1", we want to check 1 more thing,
+		- Whether, 'is_active' Flag '0 / 1'?
+		-> 'is_active' flag '0' --> Do nothing
+		-> 'is_active' flag '1' --> Then run "If Condition 1" only
+
+	+ If Condition 3: 
+	/ we are checking 'is_active' flag '0 / 1'? /
+	E.g. | @equals(item().is_active, '1') | Then run whole "If Condition 1" only
+
+	- Execute Pipeline 1: "pl_copy_from_emr_"
+				
+
+*Notes:
+--> Inside 'For Each Activity' --> under 'Settings Tab' --> Sequential: Unchecked (that means, entire 'For Each Activity' (main part) will be done in Parallel) 
+	- Batch count: 5 --> (that means, in a batch 5 activities will be running in parallel)
+		--> so, we'll be doing thing in parallel. And, since, we're not having a 'auto-increment' Column there, Parallel will be supported.
+		--> Earlier, if 'auto-increment' Column is there in 'Audit Table', it will not work.
+	- Items: @activity('Lkp_EMR_Configs'.output)
+
+
+==)  // What we've implemented till now: //
+--> Implemented the Linked Service for 'Key Vault' & 'Databricks'.
+--> Implemented the 'naming conventions & folder structure'.
+--> Implemented 'is_active / is_inactive' (0/1) Flag.
+--> Made the Pipeline from 'Sequential --> Parallel'.
+
+
+-------------------------------------------------
+++ // Adding Other Datasets to 'Bronze Layer': //
+-------------------------------------------------
+
+1)--> EMR Data 'Azure SQL DB' to 'Bronze layer' (Done)
+2) --> NPI & ICD Data (from 'APIs' -> 'Bronze layer')
+3) --> Claims & CPT Data ('landing' -> 'Bronze layer')
+
+Let's perform,
+==) // 2) --> NPI & ICD Data (from 'APIs' -> 'Bronze layer') //
+	-------------------------------------------------------
+
+--> create a Folder: "2.API extracts" in Databricks Workspace
+1) ICD Code API extract:
+------------------------
+--> We want to give the 'Client Secrets' so get the 'Token' so that we can call the actual API.
+	- In the actual API, we are calling subset of thing so that we get limited records.	- We'll get the 'Parent level' thing which is not the actual these details, so we have to go down or until we get the 'leaf level' details like this.
+
+
+codes.append({'icd_code'
+'icd_code_type'
+'code_description'
+'inserted_date'
+'updated_date'
+'is_current_flag'
+})
+
+--> *Notes: We could have done 'override' to it so that we do not require insert, update and inserted_date, updated_date, is_current_flag.
+	- This is more like a 'SCD-2' type, which we've implemented for 'EMR Data'.
+	- If we want to do the same then we can keep it this way and do 'append', instead of 'override' do 'append'.
+	- Because, let's say, we end up rerunning for 2 times then somehow your data should not get messed up / if new updates are coming, how will you tackle?
+	- Either we can do a 'override' or if we are doing 'append' then make sure we 'implement some logic' (that kind of logic we've implemented for 'EMR Data')
+
+
+--> When we write a DataFrame in a 'append' mode- it's better to write it in 'override' mode so that we do not have to deal with anything like, insert/update/inserted_date/updated_date.
+but,
+if we feel that there can be changes which we want to maintain history and all, then keep it append.
+
+
+2) NPI Code API extract: (Doctor related information)
+-----------------------------------------------------
+
+*Notes: In actual, NPI Code starts with '1', (and its a 10 digits) but in our Datasets (in Patients Data and all, whenever NPI Codes we have used)
+	- because, we can not use the actual one, we should not be used, because it points to the actual doctor.
+
+=> Data extracted from the APIs is very less, so when you make join, we may see a lot of NULLs value.
+	- because, these are 'public APIs' will take a lot of time to run.
+	-> // If you can somehow collect a dump from somewhere - it's fine.
+	-> if we want the more data, do consider changing your URL & extract complete data but remember it may take a lot of time.
+
+-------------------------------------------------------------------
+Let's perform,
+==) // 3) --> Claims & CPT Data ('landing' -> 'Bronze layer') //
+	-------------------------------------------------------
+- Putting it in 'parquet format' in 'Bronze layer'.
+- 
+
+
+*Notes: 
+--> So, now this 'Bronze layer' can act as a 'source of truth' and Data Engineering Teams can be used it for their work.
+--> So data sitting in right 'format', which takes less storage, and have right compression. So things are set and this 'Bronze layer' is set.
+
+
+==> Next step: how to take this forward to 'Silver layer' by doing,
+	- some claning, refining, filtering, transforming, 
+	- by implementing 'Change Data Capture' (CDC) / SCD-2 / Common Data Model (CDM), etc.
+
+------------------------------------------
+++ // 'Bronze Layer' to 'Silver Layer': //
+------------------------------------------
+
+** Datasets we have:
+1) --> EMR Data:
+	- Providers    - (Full Load - no need not implement SCD-2 - small dataset)
+	- Departments  - (Full Load - no need not implement SCD-2 - small dataset)
+	- Patients     - (Incremental Load - SCD-2)
+	- Encounters   - (Incremental Load - SCD-2)
+	- Transactions - (Incremental Load - SCD-2)
+
+2) --> NPI & ICD Data  - (Incremental Load - SCD-2)
+
+3) --> Claims & CPT Data  - (Incremental Load - SCD-2)
+------------------------------------------------------
+
+=> Complete Refresh Scenario (Full Load - Overriding - no need not maintain the history)
+=> SCD-2 Scenario
+
+
+1) => Complete Refresh Scenario (Full Load - Overriding - no need not maintain the history)
+
+--> 'Departments' Table:
+------------------------
+	- read the 'parquet' data from the 'departments' of both 'Hospital-a & Hospital-b' from 'Bronze layer'
+	- merge both DataFrame: 'df_hosa & df_hosb'
+	- create 'SRC_Dept_id' column and take the same data of 'deptid' column into it.
+	- create 'Dept_id' column: make it as 'deptid' + '-' + 'datasource'
+		-
+	- drop 'deptid' old column (no needed as the same data was copied into 'SRC_Dept_id' column)
+
+
+=> Create Silver Table Definition:
+----------------------------------
+%sql
+CREATE TABLE IF NOT EXISTS silver.departments(
+	Dept_Id string,
+	SRC_Dept_id string,
+	Name string,
+	datasource string,
+	is_quarantined boolean
+)
+USING DELTA;
+
+--> 'is_quarantined' Boolean: 
+	- if some records  fails 'Data Quality' check, then we'll quarantine that record and say 'quarantine' True (i means, keep it isolated - it should not go with the right data), so any bad records should be quarantined and any good records should not be quarantined.
+	- True: bad data | False: good data
+
+
+=> Truncate Silver Table:
+-------------------------
+%sql
+truncate table silver.departments
+
+	- Initially, it will be no data, but from next time onwards it will make sense to have a truncation here.
+
+
+=> Now, we want to insert it into 'Silver Table':
+-------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+**Notes:
+--> This is a 'Full Refresh' (Full Load), because this is hardly a few records, but kind of we've applied a 'Common Data Model (CDM)' also to some extent
+	- because, if there is 'same departments' in both the Hospitals, then we're not dependent on that and it can happen that 'Hospital-2' is bringing one new Department which is not there in 'Hospital-1', so that will not change our logic. Our logic is independent of the Hospital now. It can not messed up our logic.
+
+
+------------------------------------------
+++ // Introduction to SCD Type 2: // => SCD-2 Scenario
+------------------------------------------
+==> Where data change is happening and we have to maintain the history also. (E.g. Address, City, State, Email, Phone number, etc.) That's where SCD-2 is required.
+
+1) ==> 'Patients Data': (more data keep coming, patient details can change)
+-----------------------
+	- read the 'parquet' data from the 'patients' of both 'Hospital-a & Hospital-b' from 'Bronze layer'
+	- merge both DataFrame: 'df_hosa & df_hosb'
+
+------------------------------------------------
+++ // Explanation of CDM (Common Data Model): //
+------------------------------------------------
+
+==) // For Patients we have to implement SCD2 & CDM (Common Data Model) // --> (Done)
+--------------------------------------------------------------------------
+--> WHY CDM? -> because, there can be different column names / schems.
+
+=> Example: 
+Hospital-a			Hospital-b
+----------			----------
+PatientID			ID
+FirstName			F_Name
+LastName			L_Name
+MiddleName			M_Name
+
+	*Notes: Here, you can see that 'Patients' Table from 2 different Hospital have different Column names / may have different schema too.
+	--> Then, how do we bring it under a "Common Schema", that is what is Common Data Model.
+-----
+	CREATE OR REPLACE TEMP VIEW cdm_patients AS
+	SELECT .......
+	FROM hosa
+	UNION ALL
+	SELECT .......
+	FROM hosb
+-----
+	--> So, different schema  we merge and bring it into a 1 'Common Data Model'.
+		->  1 Table which have everything now and in a way that we will not be messed up, we can easily identify from which hospital it is coming.
+
+
+------------------------
+++ // Quality Checks: //
+------------------------
+
+==) // Now, Quality Check we have to do: // --> (Done)
+-------------------------------------------
+
+-----
+	CREATE OR REPLACE TEMP VIEW quality_checks AS
+	SELECT
+		Patient_Key,
+		SRC_PatientID,
+		FirstName,
+		LastName,
+		MiddleName,
+		SSN,
+		PhoneNumber,
+		Gender,
+		DOB,
+		Address,
+		ModifiedDate AS SRC_ModifiedDate,
+		Datasource,
+		CASE
+		    WHEN SRC_PatientID IS NULL OR dob IS NULL OR firstname IS NULL or lower(firstname)='null' THEN TRUE
+		    ELSE FALSE
+		END AS is_quarantined
+		FROM cdm_patients
+-----
+
+==) // Now, we load into 'Silver Table': // --> ()
+-------------------------------------------
+
+++> Create structure of 'Silver Table':
+    -----------------------------------
+CREATE TABLE IF NOT EXISTS silver.patients(
+	Patient_Key STRING,
+	SRC_PatientID STRING,
+	FirstName STRING,
+	LastName STRING,
+	MiddleName STRING,
+	SSN STRING,
+	PhoneNumber STRING,
+	Gender STRING,
+	DOB STRING,
+	Address STRING,
+	SRC_ModifiedDate TIMESTAMP,
+	Datasource STRING,
+	is_quarantined BOOLEAN,
+	insertedDate TIMESTAMP,
+	modifiedDate TIMESTAMP,
+	is_current BOOLEAN
+)
+USING DELTA;
+
+--------------------------------
+++ // Implementation of SCD2: //
+--------------------------------
+
+**Notes: **
+--> If we want to implement 'SCD2' we require these columns:
+	- insertedDate TIMESTAMP,
+	- modifiedDate TIMESTAMP,
+	- is_current BOOLEAN
+
+
+=> Example:
+
+	Peter - Hyderabad (address: Link road)
+	insertedDate - 25th July 2025 (1st, it's inserted)
+	modifiedDate - 25th July 2025 (1st, it's inserted)
+	is_current - True (1st, it's a new record)
+
+	-> / Let's say Peter's address change /
+
+	modifiedDate - 1st Nov 2025
+	is_current - False (now this record is no longer valid currently)
+
+	--> That means, this record was valid from '25th July 2025 to 1st Nov 2025'
+
+	Peter - Hyderabad (address: Magnus road)
+	insertedDate - 1st Nov 2025 (again, it's inserted)
+	modifiedDate - 1st Nov 2025 (again, it's inserted)
+	is_current - True (again, it's a new(refreshed) record)
+
+	--> Now, we have to insert this record
+
+	*Notes:
+	-> This way we know, the person 'Peter' stayed in 'Link road' from 25th July 2025 till 1st Nov 2025 and he is no longer living there currently. And currently he is living in 'Magnus road' and he started living there from 1st Nov 2025 and he is currently living there.
+	(so, this is the way we can maintain history - SCD2)
+
+
+
+
+--> If any updates are coming in 'Silver Table' (Target):
+	// When 'Patient_Key'(Target Table) == with 'Patient_Key'(Source Table) //
+	-> It means, there is some new record is coming for that existing 'Patient_Key'.
+	   It means, there should definitely be a 'updatation of record'.
+	-> check if other columns value is changing?
+	   (E.g. FirstName, LastName, MiddleName, Address, PhoneNumber, DOB, Gender, etc.
+	   It can be any columns of 'quality_checks' Table)
+
+
+	Peter - Hyderabad (address: Link road)
+	insertedDate - 25th July 2025 (1st time, it's inserted)
+	modifiedDate - 25th July 2025 (1st time, it's inserted)
+	is_current - True (1st, it's a new record)
+
+	-> / Let's say Peter's address change /
+
+	- Then, we have to update & set,
+		- is_current = False
+		- modifiedDate = currentTimestamp
+
+		is_current - False (now this record is no longer valid currently)
+		modifiedDate - 1st Nov 2025
+
+	--> That means, this record was valid from '25th July 2025 to 1st Nov 2025'
+	----------------------------
+
+	Peter - Hyderabad (address: Magnus road)
+	insertedDate - 1st Nov 2025 (again, it's inserted)
+	modifiedDate - 1st Nov 2025 (again, it's inserted)
+	is_current - True (again, it's a new(refreshed) record)
+
+	=> Remember 1 thing:
+	   (In previous case we've ended the previous record, but we have still not inserted the new record which came)
+	   - So, ideally we should insert again a record for existing 'Patients_Key'
+
+	*Notes: that means, we ended this previous record and we've updated this.
+	- And, 'updates' are possible in 'Delta Table', that's where 'Delta Table' supports 'updates', because of 'Delta logs' and all.
+	-----------------------------------
+
+==) // When If Not matched // --> Then we have to insert a new entry (1st time coming).
+	(What does that mean?)
+	
+	- When the record has not matched (It's 1st time this record is coming) --> then definitely it will do a 'Insert'.
+
+
+
+		- [Insert all required columns] 
+		+
+		- insertedDate - current_timestamp()
+		- modifiedDate - current_timestamp()
+		- is_current - True
+
+-------------
+--> Remember, what we are yet to be done?
+	-> In case of 'update', we've end dated the previous record, but yet to enter a new entry for that.
+
+==> // Insert new and updated records into the 'Delta Table', marking them as current //
+----------------------------------------------------------------------------------------
+	--> We have made it at 'False', --> so it will be a case for the 'Update Scenario' (where new record has to be inserted)
+		-> So, when not match then we're inserting it.
+
+
+// We've handle 2 cases: //
+---------------------------
+1) When 'New Record': Then, it's a simple 'Update' (nothing has matched, it inserts) 
+
+2) When 'Update'(means, record was there & new record has come): 
+	= we did 2 things:
+	i) End dated the previous one and marked it as 'Inactive' (False)
+	ii) Inserted a new one. (process same as new record insertion)
+
+-> *Notes: The way you inserted a 'new record' Vs. inserted a 'update record' --> It's same.
+
+
+2) ==> 'Transactions Data': (more data keep coming, transaction details can change)
+--------------------------
+	- read the 'parquet' data from the 'transactions' of both 'Hospital-a & Hospital-b' from 'Bronze layer'
+	- merge both DataFrame: 'df_hosa & df_hosb'
+		- df_hosa.unionByName(df_hosb)
+
+
+	1) Created 'quality_checks' (TEMP VIEW)
+	- where we implement whatever are NULLS, we quarantine that (make it True)
+
+	2) Then, created a 'Silver Table' Definition:
+		- It's a 'Delta Table', so updates are supported
+
+	3) Merge into the 'Silver Table' --> as (Target)
+	   using 'quality_checks' --> as (Source)
+	   On certain conditions: 
+		- target.TrasactionID = source.TrasactionID
+		- target.is_current = true
+	   WHEN MATCHED
+	   AND (
+	   ... Any of the the column has changed ...
+	   )
+	   THEN
+	   UPDATE
+	   SET
+		target.is_current = false
+		target.audit_modifieddate = current_timestamp()
+
+*Notes:
+	-> That means, we end date the previous record and "audit_modifieddate' will be 'current_timestamp()" and "is_current = false"
+	-> That means, we are saying the previous record is 'invalid' and it has become invalid on this date.
+
+
+	4) //  If there is a 'new record' which is coming / for the Update record we have to 'insert' -- that will happen here //
+	
+	=> // WHEN NOT MATCHED // -- (Both the cases will come)
+	1) When it's totally a 'new record' (1st time it's coming)
+	or it will even when,
+	2) It's a 'Update' - when "target.is_current = false" now
+ 	(so it will not match then also) (For the Update record we have to 'insert')
+	
+	--> Then, it has to insert and insert becomes same way.
+---------------------------------------------------------------
+
+
+--> Basically, what we're doing?
+    ----------------------------
+
+1) CDM (Common Data Model)
+	- If we have 'different schemas', we're bringing them under a 'Common Schema'.
+
+2) We're implementing 'Quality Checks' (quarantine bad records)
+	- Checking for the NULLs and lot of other things.
+
+3) If there can clash in the 'IDs' for both the Tables, we're again giving a 'Surrogate Key' by appending the 'Hospital name' to that.
+	- E.g. ''
+
+4)  We're implementing 'SCD2'
+	- Where we're maintaining the history
+	- end dating the previous record and so on.
+
+
+---------------------------------
+++ // 'Silver to Gold layer' : //
+---------------------------------
+
+--> We want to bring records from 'Silver layer' --> 'Gold layer'
+
+Database: gold
+Table: dim_patient
+
+1) --> Create 'Dimension Patient' Table:
+----------------------------------------
+
+CREATE TABLE IF NOT EXISTS gold.dim_patient
+(
+	patient_key STRING,
+	src_patientid STRING,
+	firstname STRING,
+	lastname STRING,
+	middlename STRING,
+	ssn STRING,
+	phonenumber STRING,
+	gender STRING,
+	dob DATE,
+	address STRING,
+	datasource STRING,
+)
+
+
+2) --> Truncate 'Gold Table'
+----------------------------
+
+truncate TABLE gold.dim_patient
+
+3) --> Insert records into 'gold.dim_patient' (Quality data & latest data)
+---------------------------------------------
+
+*Notes: 
+	- From where we will insert? --> from the 'Silver layer'
+	- But, we do not want to bring 'inactive' (like, old history and all) & bad records(quarantined records)
+		- we are interested in 'latest' records. That's why in 'Gold layer' we're saying,
+	"is_current = true" & 
+	"is_quarantined = false"
+		== Example:
+		-> Let's say, this patients detail has changed 5 times, then there will be total 6 records in 'Silver layer', but in 'Gold layer' we want to bring the latest record, which is 'Active' one, so ==> "is_current = true"
+		-> And, also we do not want to bring the 'bad data', 
+		so "is_quarantined = false".
+			-> Anything that was quarantine, we do not want to let it forward. Let it quarantine, it should not come out of the 'Silver layer' room.
+			-> That means, all the records which are good will only move forward to 'Gold layer'.
+
+
+$sql
+insert into gold.dim_patient
+select
+	patient_key,
+	src_patientid,
+	firstname,
+	lastname,
+	middlename,
+	ssn,
+	phonenumber,
+	gender,
+	dob,
+	address,
+	datasource
+from silver.patients
+where is_current = true and is_quarantined = false
+
+
+4) --> View the Table 'gold.dim_patient'
+----------------------------------------
+select * from gold.dim_patient
+
+
+--------------------------------
+++ // 'Gold Layer Queries' : //
+--------------------------------
+
+
+
+--------------------------------------
+++ // Azure Data Factory Pipeline : //
+--------------------------------------
+
+*Notes:
+--> If someone has to run this Pipeline? -> what needs to be done is?
+	- You must truncate the 'Audit Table', then you can run it from scratch.
+	// WHY we are truncating? //
+	-> because, we're not having 'newer data' if we have 'new data' then even we do not have to truncate, incremental will work.
+		- Since, the same data is there it will not do anything in the second iteration.
+
+
+--> We are not having 'claims & encounters' as part of 'Facts' in 'Gold layer'. 
+	- If want to handle/serve more KPIs -> then we should be even creating that.
+
+
+---------------------------------
+++ // Syncing Code to GitHub : //
+---------------------------------
+1)
+=> How to sync it?
+Steps: Go to GitHub -> Settings -> Developer Settings -> click, 'Personal Access Token' -> select 'Tokens (classic)' -> click, 'Generate new token'
+
+=> User name | => Token
+
+2) Go to Databricks -> Settings -> User -> Linked accounts
+	- Git provider: select, 'GitHub'
+	- select, 'Personal access token'
+	- Git provider username or email: 'PankilBavisi25'
+	- Token: paste the copied token.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
