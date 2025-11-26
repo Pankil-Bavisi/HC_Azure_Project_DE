@@ -554,7 +554,7 @@ such as, when we connect to,
 	- Domain: 'https://adb-2069552357219267.7.azuredatabricks.net'
 	- Existing Cluster ID: '1121-200826-ynkqjvlr'
 	- Access Token: go to Databricks -> Settings -> Developer -> Access tokens(click on Manage) -> 'Generate new Token' -> Copy the token(because, you won't be able to see it again)
-		- databricks-access-token: 'dapid55d4f2620ad10473861e492932187b8eart12h'
+		- databricks-access-token: 'put copied Databricks Token here'
 
 
 
@@ -1421,7 +1421,7 @@ Flow is: Catalog name --> Schema name(Database) --> Tables name --> Views name
 	+ Secrets:
 		- sql-db-pwd
 		- pb-adls-access-key
-		- pb-hc-adb-ws-access-token --> 'dapid55d4f2620ad10473861e492932187b8eart123h'
+		- pb-hc-adb-ws-access-token --> 'put copied Databricks Token here'
 
 	+ There is a way that we create a 'Scope' in Databricks:
 		- Databricks Scope name: 'pb-hc-project-scope'
