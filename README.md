@@ -20,10 +20,8 @@
   
   <h2>Technology Used</h2>
     <ul>
-      <li>Programming Language - Python</li>
-      <li>SQL</li>
-      <li>Spark</li>
-      <li>PySpark</li>
+      <li>Programming Language: Python, SQL, PySpark</li>
+      <li>Big Data Processing: Apache Spark</li>
     </ul>
     <p>==) Azure Cloud Services:</p>
       <ol>
@@ -49,7 +47,7 @@
       
   <h2>Dataset Used</h2>
     <p dir="auto">Healthcare Data includes various fields of records such as EMR Data(Patients Data, Providers Data(Doctors), Departments Data, Encounters Data, Transactions Data), Claims Data, CPT Codes Data, NPI & ICD Codes Data.</p>
-    <p>Here is the dataset used in the video - <a href="https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/main/datasets">https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/main/datasets</a></p>
+    <p>Here is the dataset used in the project - <a href="https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/main/datasets">https://github.com/Pankil-Bavisi/HC_Azure_Project_DE/blob/main/datasets</a></p>
     <p>Links to understand the KPI's & understand more on Accounts Receivable (AR)</p>
     <ol>
       <li>Website : <a href="https://mdmanagementgroup.com/healthcare-accounts-receivable-management/">https://mdmanagementgroup.com/healthcare-accounts-receivable-management/</a></li>
